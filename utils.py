@@ -1,7 +1,10 @@
 from __future__ import division
+
 import matplotlib.pyplot as plt
 import numpy as np
 import tensorflow as tf
+
+from tensorflow.python.framework import ops
 
 def gray2rgb(im, cmap='gray'):
     cmap = plt.get_cmap(cmap)
@@ -286,3 +289,31 @@ def bilinear_sampler(imgs, coords):
         w10 * im10, w11 * im11
     ])
     return output
+
+def get_tensor_alias(tensor):
+  """Given a tensor gather its alias, its op.name or its name.
+  If the tensor does not have an alias it would default to its name.
+  Args:
+    tensor: A `Tensor`.
+  Returns:
+    A string with the alias of the tensor.
+  """
+  if hasattr(tensor, 'alias'):
+    alias = tensor.alias
+  else:
+    if tensor.name[-2:] == ':0':
+      # Use op.name for tensor ending in :0
+      alias = tensor.op.name
+    else:
+      alias = tensor.name
+  return alias
+
+
+def convert_collection_to_dict(collection):
+  """Returns a dict of Tensors using get_tensor_alias as key.
+  Args:
+    collection: A collection.
+  Returns:
+    A dictionary of {get_tensor_alias(tensor): tensor}
+  """
+  return {get_tensor_alias(t): t for t in ops.get_collection(collection)}
