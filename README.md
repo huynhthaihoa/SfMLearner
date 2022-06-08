@@ -12,10 +12,15 @@ See the [project webpage](https://people.eecs.berkeley.edu/~tinghuiz/projects/Sf
 <img src='misc/cityscapes_sample_results.gif' width=320>
 
 ## Prerequisites
-This codebase was developed and tested with Tensorflow 1.0, CUDA 8.0 and Ubuntu 16.04.
+
+This codebase was developed and tested with Tensorflow 2.9.1, CUDA 11.7, Python 3.9.13 and Windows 11.
+
+*For the original version, please refer to: [https://github.com/tinghuiz/SfMLearner](https://github.com/tinghuiz/SfMLearner)*
 
 ## Running the single-view depth demo
-We provide the demo code for running our single-view depth prediction model. First, download the pre-trained model from this [Google Drive](https://drive.google.com/file/d/1AH5LV29Fijrz_QI3Th6ogtXJKXhd8Nm9/view?usp=sharing), and put the model files under `models/`. Then you can use the provided ipython-notebook `demo.ipynb` to run the demo.
+We provide the demo code for running our single-view depth prediction model. First, download the pre-trained model from this [Google Drive](https://drive.google.com/file/d/1AH5LV29Fijrz_QI3Th6ogtXJKXhd8Nm9/view?usp=sharing), extract and put the model files under `models/`. Then you can use the provided ipython-notebook `demo.ipynb` to run the demo.
+
+*In case you get an error message: "Could not locate zlibwapi.dll. Please make sure it is in your library path", please download and extract the zlib package from [ZLIB DLL](http://www.winimage.com/zLibDll/zlib123dllx64.zip) (for 32-bit machine please use [32-bit ZLIB DLL](http://www.winimage.com/zLibDll/zlib123dll.zip)) and copy them to C:\Windows\System32 and C:\Windows\SysWOW64*
 
 ## Preparing training data
 In order to train the model using the provided code, the data needs to be formatted in a certain manner. 
