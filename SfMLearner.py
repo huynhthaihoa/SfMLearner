@@ -4,10 +4,12 @@ import time
 import math
 import numpy as np
 import tensorflow as tf
-import tensorflow.contrib.slim as slim
+import tf_slim as slim
 from data_loader import DataLoader
 from nets import *
 from utils import *
+
+tf.compat.v1.disable_eager_execution()
 
 class SfMLearner(object):
     def __init__(self):
@@ -262,7 +264,7 @@ class SfMLearner(object):
                     self.save(sess, opt.checkpoint_dir, gs)
 
     def build_depth_test_graph(self):
-        input_uint8 = tf.placeholder(tf.uint8, [self.batch_size, 
+        input_uint8 = tf.compat.v1.placeholder(tf.uint8, [self.batch_size, 
                     self.img_height, self.img_width, 3], name='raw_input')
         input_mc = self.preprocess_image(input_uint8)
         with tf.name_scope("depth_prediction"):
@@ -275,7 +277,7 @@ class SfMLearner(object):
         self.depth_epts = depth_net_endpoints
 
     def build_pose_test_graph(self):
-        input_uint8 = tf.placeholder(tf.uint8, [self.batch_size, 
+        input_uint8 = tf.compat.v1.placeholder(tf.uint8, [self.batch_size, 
             self.img_height, self.img_width * self.seq_length, 3], 
             name='raw_input')
         input_mc = self.preprocess_image(input_uint8)
