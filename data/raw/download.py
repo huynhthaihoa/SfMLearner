@@ -1,4 +1,6 @@
 import wget
+import zipfile
+import os
 
 files=['2011_09_26_calib.zip',
 '2011_09_26_drive_0001',
@@ -170,5 +172,8 @@ for file in files:
         shortname = file
         fullname = file
     print("Downloading: ", shortname)
-    url = 'https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/' + fullname
-    wget.download(url)
+    filename = wget.download('https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/' + fullname)
+    print()
+    with zipfile.ZipFile(filename, 'r') as zip_ref:
+        zip_ref.extractall(shortname[:-4])
+    os.remove(shortname)
